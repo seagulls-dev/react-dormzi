@@ -1,0 +1,9 @@
+.poke-item {
+    border: 1px solid lightgray;
+    margin: 10px;
+    text-align: center;
+}
+
+.poke-item:hover {
+    cursor: pointer;
+}
