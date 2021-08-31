@@ -6,6 +6,12 @@ import PokeList from "./components/PokeList";
 import { Button, Modal } from "reactstrap";
 import Gallery from "./components/Gallery";
 import axios from 'axios';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from "react-router-dom";
+import PokePage from "./components/PokePage";
 
 function App() {
 
@@ -16,7 +22,6 @@ function App() {
         axios.get(`http://pokemon.test.dormzi.com/pokemon`)
             .then(res => {
                 const data = res.data;
-                console.log(data)
                 setLists(data);
             })
     },[])
@@ -26,13 +31,23 @@ function App() {
     }
 
     return (
-        <React.Fragment>
-            <Button onClick={showModal}>
-                Show Gallery
-            </Button>
-            <PokeList data={lists}/>
-            <Gallery isOpen={isOpen} data={lists} toggle={()=>setIsOpen(!isOpen)}/>
-        </React.Fragment>
+        <Router>
+            <React.Fragment>
+                <Button onClick={showModal}>
+                    Show Gallery
+                </Button>
+                <PokeList data={lists}/>
+                <Gallery isOpen={isOpen} data={lists} toggle={()=>setIsOpen(!isOpen)}/>
+                <Switch>
+                    <Route path="/poke/:id" children={<PokePage />}>
+                    </Route>
+                    {/*<Route path="/">*/}
+                    {/*    */}
+                    {/*</Route>*/}
+                </Switch>
+            </React.Fragment>
+        </Router>
+
     );
 }
 
